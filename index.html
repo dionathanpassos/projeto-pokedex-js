@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="imagem/svg" href="./img/pokeball.svg" />
+    <script src="https://kit.fontawesome.com/5dfd27b4a3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" media="" href="./styles/style.css">
+    <link rel="stylesheet" media="" href="./styles/mediaquery.css">
+    <title>PokéDex</title>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo container">
+            <a href="/index.html"><img src="/img/logo-pokemon.svg" alt=""></a>
+        </div>
+    </header>
+
+    <main>
+        <div class="container content">
+            <div class="title">
+
+                <h3>Encontre seus <br><span>Pokemons</span><br> favoritos pelo nome ou numero.</h3>
+
+                <p>Legal! Você pode pesquisar seus Pokemons e visualizar as habilidades, tipos e muito mais.
+                </p>
+
+                <a href="#poke-area" class="btn">COMEÇAR AGORA!</a>
+
+            </div>
+
+            <div class="banner">
+                <img src="/img/pokedex.png" alt="Pokedex">
+            </div>
+        </div>
+    </main>
+
+    <section class="poke-area" id="poke-area">
+        <div class="container">
+
+            <div class="poke-title">
+                <h3>Selecione seu Pokémon</h3>
+                <form action="">
+                    <input type="text" class="input-search" placeholder="Insira o nome ou numero" required="required">
+
+                    <button type="submit" class="input-submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+            </div>
+
+            <div class="dropdown">
+                <span>Filtrar por tipo:</span>
+                <select name="" class="select-type" id="select-type" onchange="getUrlSelect()">                    
+                    <option class="option-type">Todos</option>
+                </select>
+            </div>
+
+            <div class="error">
+                <span class="msg-error">Desculpe, Pokémon não encontrado, tente novamente!</span>
+            </div>
+            <div class="result-search">
+                <span class="result"></span>
+            </div>
+
+        </div>
+        <div class="poke-result container">
+            <div class="list-type">
+                <span>Filtre por tipo</span>
+                
+                <ul class="menu-type">
+                    <li><a onclick="fetchAllPokemon()" class="link-type">Todos</a></li>
+                </ul>
+            </div>
+
+            <div class="poke-cards">
+                
+            </div>
+
+        </div>
+        <div class="container paginate">
+            <button class="see-more">Ver mais</button>
+        </div>
+        
+    </section>
+    
+
+    <footer>
+        <div class="container footer-content ">
+            <div class="footer-text">
+                <h1>Projeto - Javascript</h1>
+                <p>Projeto desenvolvido por Dionathan de cunho educativo.</p>
+            </div>
+            <div class="icons">
+                <a href="https://github.com/dionathanpassos" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/dionathanpassos/" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
