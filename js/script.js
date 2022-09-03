@@ -69,14 +69,18 @@ seeMore.addEventListener('click', ev => {
 
 /*Código responsável por monitorar os links <a> e capturar o href*/
 menuType.addEventListener('click', ev => {
-    ev.preventDefault();
+    ev.preventDefault();    
     removeCards()
     pokeCards.style.height = 734 + "px"
     seeMore.style.visibility = "visible"
     spanError.style.display = "none"
-    let href = ev.target.closest('a');
-    if (href !== null) {
-        fethUrlType(href.href)
+
+    let menuLink = ev.target.closest('a')
+    
+    if (menuLink.text === "Todos") {
+            fetchAllPokemon()   
+    } else {
+        fethUrlType(menuLink.href)
     }
 });
 /*Fim EventListener*/
@@ -128,14 +132,22 @@ function fetchSinglePokemom(url) {
 
 /*Create Single card Pokemon */
 function createPokeCard(data) {
-    const img = data.sprites.other.dream_world.front_default;
+    let img = data.sprites.other.dream_world.front_default;
+    
+    if(img === null) {
+        img = data.sprites.front_default;
+    }
+    if(img ===null){
+        img = "/img/error-404.svg"
+    }
+
     pokeCards.innerHTML = `
     <div class="poke-card">
                     <div class="poke-content">
                         <p class="id">#${data.id}</p>
                         <div class="card-img">
                             <img class="img" src="${img}"
-                            alt="">
+                            alt="${data.name}">
                         </div>
                         <h3 class="poke-name">${data.name}</h3>
                         <div class="types"> 
@@ -176,7 +188,7 @@ function createPokeCard(data) {
 
 /*Fetch em todos os Pokemon da API */
 function fetchAllPokemon() {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0")
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=1&offset=0")
         .then(resp => resp.json())
         .then(function (data) {
             const resp = data.results;
@@ -193,13 +205,21 @@ function fetchUrlPokemon(url) {
     fetch(url)
         .then(resp => resp.json())
         .then(function (url) {
+            
             createPokemon(url);
         })
 }
 
 function createPokemon(data) {
     const id = "#" + data.id;
-    const img = data.sprites.other.dream_world.front_default;
+    let img = data.sprites.other.dream_world.front_default;
+
+    if(img === null) {
+        img = data.sprites.front_default;
+    }
+    if(img ===null){
+        img = "/img/error-404.svg"
+    }
 
     const pokeCard = document.createElement('div');
     pokeCard.className = "poke-card";
@@ -210,9 +230,9 @@ function createPokemon(data) {
     pokeId.textContent = id;
     const divCardImg = document.createElement('div');
     divCardImg.className = "card-img";
-    const imgPokemon = document.createElement('img');
-    imgPokemon.className = "img";
+    const imgPokemon = document.createElement('img');    
     imgPokemon.src = img
+    imgPokemon.alt = data.name
     const h3PokeName = document.createElement('h3');
     h3PokeName.className = "poke-name";
     h3PokeName.textContent = data.name;
@@ -277,6 +297,7 @@ function fethUrlType(urlType) {
             result.textContent = results.length + ' Pokémons encontrado';
             results.map((result) => {
                 fetchUrlPokemon(result.pokemon.url)
+                
             })
         })
 }
